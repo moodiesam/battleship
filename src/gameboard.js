@@ -11,6 +11,14 @@ class Gameboard {
         }
     };
 
+    //render board from boardInfo
+
+    renderBoard() {
+        this.boardInfo.forEach((space) => {
+            //add space
+        })
+    }
+
     placeShip(ship, startingPosition, vertical = false) {
         this.shipInfo.push(ship);
         if (vertical === false) {
