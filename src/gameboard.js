@@ -12,13 +12,6 @@ class Gameboard {
         }
     };
 
-    clearComputerGameboard() {
-        const computerGameboard = document.getElementById('computerGameboard');
-        while (computerGameboard.firstChild) {
-            computerGameboard.firstChild.remove();
-        }
-    }
-
     placeShip(ship, startingPosition, vertical = false) {
         this.shipInfo.push(ship);
         if (vertical === false) {

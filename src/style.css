@@ -1,8 +1,28 @@
+body {
+    margin: 0px;
+}
+
 .mainPage {
+    display: grid;
+    grid-template-rows: 20vh 60vh 20vh;
     background-color: lightgreen;
+}
+
+.banner {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.winner {
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.gameboardSection {
     display: grid;
     grid-template-columns: 500px 500px;
-    height: 100vh;
+    height: 60vh;
     width: 100vw;
     justify-content: center;
     align-items: center;

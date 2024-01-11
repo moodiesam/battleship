@@ -1,3 +1,4 @@
+import { playerOne, computer, playerOneBoard, computerBoard } from "./game";
 
 function renderPlayerBoard(board) {
     //render player board
@@ -30,6 +31,13 @@ function renderPlayerBoard(board) {
     })
 };
 
+function clearPlayerGameboard() {
+    const playerGameboard = document.getElementById('playerGameboard');
+    while (playerGameboard.firstChild) {
+        playerGameboard.firstChild.remove();
+    }
+};
+
 function renderComputerBoard(board) {
     const computerGameboard = document.getElementById('computerGameboard');
     let cellID = 0
@@ -48,27 +56,47 @@ function renderComputerBoard(board) {
         } else {
             newCell.classList.add('emptyCell');
         }
-    
+        
+        //clear computer board
+
+        function clearComputerGameboard() {
+            const computerGameboard = document.getElementById('computerGameboard');
+            while (computerGameboard.firstChild) {
+                computerGameboard.firstChild.remove();
+            }
+        };
+
         //create event for turn
+        if (computerBoard.allShipsSunk() === true || playerOneBoard.allShipsSunk() === true) {} 
+        else if (cell.hit === false) {
+            newCell.addEventListener("click", e => {
+                board.receiveAttack(e.target.id)
+                clearComputerGameboard();
+                renderComputerBoard(board);
+                declareWinner(computerBoard)
 
-        newCell.addEventListener("click", e => {
-            board.receiveAttack(e.target.id)
-            board.clearComputerGameboard();
-            renderComputerBoard(board);
+                //make random computer attack
 
-
-            //make random computer attack
-            //clear player board
-            //rerender player board
-
-            console.log(board.allShipsSunk());
-        })
+                playerOneBoard.receiveAttack(computer.randomMove(100));
+                clearPlayerGameboard();
+                renderPlayerBoard(playerOneBoard);
+                declareWinner(playerOneBoard)
+            })
+        }
 
         cellID++;
         computerGameboard.appendChild(newCell);
     })
 };
 
+function declareWinner(board) {
+    if (board.allShipsSunk() === true) {
+        const winningMessage = document.getElementById('winningMessage');
+
+        winningMessage.innerHTML = 'Winner';
+        winningMessage.classList.add('winner');
+    } else return;
+}
 
 export {
     renderPlayerBoard,
