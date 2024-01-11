@@ -1,13 +1,49 @@
 .mainPage {
     background-color: lightgreen;
     display: grid;
-    grid-template-rows: 500px 500px;
+    grid-template-columns: 500px 500px;
     height: 100vh;
     width: 100vw;
-
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
 }
 
-.gameBoard {
+.gameboard {
+    display: grid;
     background-color: lightblue;
-    color: red;
+    height: 500px;
+    width: 500px;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.cell {
+    border: solid black 2px;
+}
+
+.emptyCell {
+    background-color: lightblue;
+}
+
+.emptyHitCell {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.occupiedHitCell {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+}
+
+.occupiedCell {
+    background-color: green;
+    
+}
+
+.hitShip {
+    background-color: red;
 }

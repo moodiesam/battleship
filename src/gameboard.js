@@ -1,3 +1,4 @@
+
 class Gameboard {
     constructor (playerName) {
         this.playerName = playerName;
@@ -11,12 +12,11 @@ class Gameboard {
         }
     };
 
-    //render board from boardInfo
-
-    renderBoard() {
-        this.boardInfo.forEach((space) => {
-            //add space
-        })
+    clearComputerGameboard() {
+        const computerGameboard = document.getElementById('computerGameboard');
+        while (computerGameboard.firstChild) {
+            computerGameboard.firstChild.remove();
+        }
     }
 
     placeShip(ship, startingPosition, vertical = false) {
