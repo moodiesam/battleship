@@ -4,17 +4,6 @@
 import { playerOneBoard } from "./game";
 import {  renderPlayerBoard } from "./dom";
 
-function createDropListeners() {
-    let dropSpot
-    const dropLocations = document.querySelectorAll('.playerCell');
-
-    dropLocations.forEach(location => {
-        location.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropSpot = Number(location.id)
-        })
-    })
-}
 
 function dragDrop(ships) {
 
@@ -30,13 +19,24 @@ function dragDrop(ships) {
     })
 
     draggables.forEach(draggable => {
+
+        draggable.addEventListener('click', () => {
+            if (ships[draggable.id].vertical === false) {
+                ships[draggable.id].vertical = true;
+            } else {
+                ships[draggable.id].vertical = false;
+            }
+            console.log(ships[draggable.id].vertical)
+            renderPlayerBoard(playerOneBoard)
+        })
+
         draggable.addEventListener('dragstart', () => {
             draggable.classList.add('dragging');
         })
 
 
         draggable.addEventListener('dragend', () => {
-            playerOneBoard.placeShip(ships[draggable.id], dropSpot);
+            playerOneBoard.placeShip(ships[draggable.id], dropSpot, ships[draggable.id].vertical);
             draggable.classList.remove(`draggable`)
             draggable.setAttribute('draggable', 'false')
             draggable.classList.remove('dragging');

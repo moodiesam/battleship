@@ -109,24 +109,28 @@ function renderDroppableShips() {
         const newShipDisplay = document.createElement('div')
         //add displayShip, draggable and ship classes
         newShipDisplay.classList.add('displayShip');
+        newShipDisplay.classList.add('ship');
+        newShipDisplay.setAttribute('id', `${i}`)
 
-        //if ship[i] doesn't exists in playerOneBoard.shipInfo, add draggable
+        //if ship doesn't exists in playerOneBoard.shipInfo, add draggable
         if (playerOneBoard.shipInfo.indexOf(ships[i]) === -1) {
             newShipDisplay.classList.add('draggable');
             newShipDisplay.setAttribute('draggable', 'true');
         } else {
             newShipDisplay.classList.add('dropped')
         };
-
-        newShipDisplay.classList.add('ship');
-        newShipDisplay.setAttribute('id', `${i}`)
         
-        
+        //add cells for length of ship
         for (let s=0; s<ships[i].length; s++) {
             const newShipCell = document.createElement('div');
             newShipCell.classList.add('cell');
             newShipCell.classList.add('occupiedCell');
             newShipDisplay.appendChild(newShipCell)
+        }
+
+        //if ship is vertical, add class to display vertical
+        if (ships[i].vertical === true) {
+            newShipDisplay.classList.add('vertical')
         }
 
         shipOptionsDiv.appendChild(newShipDisplay)

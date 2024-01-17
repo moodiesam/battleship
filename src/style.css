@@ -1,11 +1,11 @@
 body {
     margin: 0px;
+    background-color: lightgreen;
 }
 
 .mainPage {
     display: grid;
-    grid-template-rows: 20vh 60vh 20vh;
-    background-color: lightgreen;
+    grid-template-rows: 20vh 55vh 25vh;
 }
 
 .header {
@@ -39,8 +39,6 @@ body {
 .gameboardSection {
     display: grid;
     grid-template-columns: 500px 500px;
-    height: 60vh;
-    width: 100vw;
     justify-content: center;
     align-items: center;
     gap: 50px;
@@ -49,8 +47,8 @@ body {
 .gameboard {
     display: grid;
     background-color: lightblue;
-    height: 500px;
-    width: 500px;
+    height: 1fr;
+    width: 1fr;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
 }
@@ -58,6 +56,7 @@ body {
 .cell {
     border: solid black 2px;
     width: 46px;
+    height: 46px;
 }
 
 .emptyCell {
@@ -97,9 +96,12 @@ body {
 
 .displayShip {
     display: grid;
-    grid-auto-flow: column;
-    height: 50px;
-    
+    grid-auto-flow: column;  
+}
+
+.displayShip.vertical {
+    grid-auto-flow: row;
+    grid-template-rows: 50px;
 }
 
 .dropped {
