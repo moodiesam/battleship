@@ -1,20 +1,84 @@
 //create the logic for placing ships on player's board with drag and drop
 
-function dragAndDrop() {
-    //variables for both draggable options and container to drag into
 
-    //eventlisteners for each draggable 
-        //"dragstart" and add "dragging" class
+import { playerOneBoard } from "./game";
+import {  renderPlayerBoard } from "./dom";
 
-        //"dragend" and remove "dragging" class
+function createDropListeners() {
+    let dropSpot
+    const dropLocations = document.querySelectorAll('.playerCell');
 
-    //eventlisteners for each container spot
-        //"dragover" to know where we are dragging it over
-        //event 'e' e.preventdefault()
-        //select draggable using dragging class
+    dropLocations.forEach(location => {
+        location.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropSpot = Number(location.id)
+        })
+    })
 }
 
-function getDragAfterElement(cell,) {
-    //might need to seperate cell numbers in order to find x and y mouse coordinates
-    //
+function dragDrop(ships) {
+
+    const draggables = document.querySelectorAll(`.draggable`);
+    const dropLocations = document.querySelectorAll('.playerCell');
+    let dropSpot;
+
+    dropLocations.forEach(location => {
+        location.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropSpot = Number(location.id)
+        })
+    })
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        })
+
+
+        draggable.addEventListener('dragend', () => {
+            playerOneBoard.placeShip(ships[draggable.id], dropSpot);
+            draggable.classList.remove(`draggable`)
+            draggable.setAttribute('draggable', 'false')
+            draggable.classList.remove('dragging');
+            renderPlayerBoard(playerOneBoard);
+            
+        })
+    })
 }
+
+// function dragDrop(ships) {
+
+//     const draggables = document.querySelectorAll(`.draggable`);
+//     const dropLocations = document.querySelectorAll('.playerCell');
+
+
+//     draggables.forEach(draggable => {
+//         draggable.addEventListener('dragstart', () => {
+//             draggable.classList.add('dragging');
+//         })
+
+//         draggable.addEventListener('dragend', () => {
+//             // playerOneBoard.placeShip(ships[draggable.id], dropSpot);
+//             // draggable.classList.remove(`draggable`)
+//             // draggable.setAttribute('draggable', 'false')
+//              draggable.classList.remove('dragging');
+//             // clearPlayerGameboard(playerOneBoard);
+//             // renderPlayerBoard(playerOneBoard);
+//         })
+//     })
+
+//     dropLocations.forEach(location => {
+//         location.addEventListener('dragover', (e) => {
+//             e.preventDefault();
+//             const dropSpot = getDropLocation(location)
+//             const draggable = document.querySelector('.dragging');
+//             playerOneBoard.placeShip(ships[draggable.id], dropspot);
+//         })
+//     })
+
+//     function getDropLocation(location) {
+        
+//     }
+// }
+
+export { dragDrop }

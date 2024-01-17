@@ -41,6 +41,7 @@ class Gameboard {
         } else {
             this.boardInfo[coordinates].hit = true;
             this.shipInfo[shipIndex].hit();
+            this.shipInfo[shipIndex].isSunk();
         };
 
     };

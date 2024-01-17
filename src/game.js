@@ -2,8 +2,10 @@ import Ship from './ship'
 import Gameboard from './gameboard'
 import Player from './player'
 import { renderPlayerBoard, renderComputerBoard } from './dom';
+import { dragDrop } from './drag-and-drop';
 
 let playerOne, computer, playerOneBoard, computerBoard;
+let ships = [];
 
 const game = () => {
     //create players
@@ -21,44 +23,40 @@ const game = () => {
     //create the four ships that will be used
 
     const carrier = new Ship('carrier', 5);
+    ships.push(carrier);
     const cruiser = new Ship('cruiser', 4);
+    ships.push(cruiser);
     const fighter = new Ship('fighter', 4);
+    ships.push(fighter);
     const turbo = new Ship('turbo', 3);
+    ships.push(turbo);
 
     //place the four ships onto each board
 
-    playerOneBoard.placeShip(carrier, 4);
-    playerOneBoard.placeShip(cruiser, 41);
-    playerOneBoard.placeShip(fighter, 58, true);
-    playerOneBoard.placeShip(turbo, 82);
+    //playerOneBoard.placeShip(carrier, 4);
+    //playerOneBoard.placeShip(cruiser, 41);
+    //playerOneBoard.placeShip(fighter, 58, true);
+    //playerOneBoard.placeShip(turbo, 82);
 
-    computerBoard.placeShip(carrier, 14);
-    computerBoard.placeShip(cruiser, 21);
-    computerBoard.placeShip(fighter, 18, true);
-    computerBoard.placeShip(turbo, 96);
+    computerBoard.placeShip(ships[0], 14);
+    computerBoard.placeShip(ships[1], 21);
+    computerBoard.placeShip(ships[2], 18, true);
+    computerBoard.placeShip(ships[3], 96);
 
     renderPlayerBoard(playerOneBoard);
+
     renderComputerBoard(computerBoard);
 
-    //EACH TURN
-
     
-
-    //1. player attacks coordinates XX
-    //2. receive attack XX
-    //3. rerender gameboard XX
-
-    //4.computer attacks 
-    //5. receive attack
-    //6. rerender gameboard
 
     return {
         playerOne,
         playerOneBoard,
         computer,
-        computerBoard
+        computerBoard,
+        ships
     }
 
 };
 
-export { game, playerOne, computer, playerOneBoard, computerBoard };
+export { game, playerOne, computer, playerOneBoard, computerBoard, ships };

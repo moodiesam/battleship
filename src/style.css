@@ -8,10 +8,27 @@ body {
     background-color: lightgreen;
 }
 
-.banner {
+.header {
     display: grid;
+    grid-template-columns: repeat(2, 500px);
+    grid-template-rows: 2fr 1fr;
     align-items: center;
     justify-items: center;
+    justify-content: center;
+    column-gap: 50px;
+}
+
+.banner {
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    align-items: center;
+    justify-items: center;
+    font-size: 50px;
+}
+
+.gameboardHeader {
+    font-size: 30px;
 }
 
 .winner {
@@ -40,6 +57,7 @@ body {
 
 .cell {
     border: solid black 2px;
+    width: 46px;
 }
 
 .emptyCell {
@@ -66,4 +84,28 @@ body {
 
 .hitShip {
     background-color: red;
+}
+
+.shipOptions {
+    display: grid;
+    grid-auto-columns: 300px;
+    grid-auto-flow: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.displayShip {
+    display: grid;
+    grid-auto-flow: column;
+    height: 50px;
+    
+}
+
+.dropped {
+    opacity: .5;
+}
+
+.displayShip.dragging {
+    opacity: .5;
 }

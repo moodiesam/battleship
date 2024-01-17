@@ -1,21 +1,21 @@
-import { playerOne, computer, playerOneBoard, computerBoard } from "./game";
+import { dragDrop } from "./drag-and-drop";
+import { playerOne, computer, playerOneBoard, computerBoard, ships } from "./game";
+
 
 function renderPlayerBoard(board) {
+
+    clearPlayerGameboard()
+
     //render player board
 
     const playerGameboard = document.getElementById('playerGameboard');
+    let cellID = 0;
 
     board.boardInfo.forEach((cell) => {
         const newCell = document.createElement('div');
         newCell.classList.add('cell');
-        
-        //for each boardinfo, create div and attach it to board in html
-        //add classes for...
-        //1. empty
-        //2. occupied
-        //3. empty and hit
-        //4. occupied and hit
-        //5. ship sunk
+        newCell.classList.add('playerCell');
+        newCell.id = cellID;
 
         if (cell.ship === null && cell.hit === true) {
             newCell.textContent = 'X';
@@ -27,8 +27,13 @@ function renderPlayerBoard(board) {
             newCell.classList.add('occupiedCell')
         } else {newCell.classList.add('emptyCell')}
 
+        cellID++;
         playerGameboard.appendChild(newCell);
     })
+
+    renderDroppableShips()
+
+    dragDrop(ships);
 };
 
 function clearPlayerGameboard() {
@@ -39,8 +44,12 @@ function clearPlayerGameboard() {
 };
 
 function renderComputerBoard(board) {
+
+    clearComputerGameboard()
+    
     const computerGameboard = document.getElementById('computerGameboard');
-    let cellID = 0
+    let cellID = 0;
+
     board.boardInfo.forEach((cell) => {
         const newCell = document.createElement('div');
         newCell.classList.add('cell');
@@ -57,21 +66,13 @@ function renderComputerBoard(board) {
             newCell.classList.add('emptyCell');
         }
         
-        //clear computer board
-
-        function clearComputerGameboard() {
-            const computerGameboard = document.getElementById('computerGameboard');
-            while (computerGameboard.firstChild) {
-                computerGameboard.firstChild.remove();
-            }
-        };
 
         //create event for turn
         if (computerBoard.allShipsSunk() === true || playerOneBoard.allShipsSunk() === true) {} 
         else if (cell.hit === false) {
+            
             newCell.addEventListener("click", e => {
                 board.receiveAttack(e.target.id)
-                clearComputerGameboard();
                 renderComputerBoard(board);
                 declareWinner(computerBoard)
 
@@ -89,6 +90,69 @@ function renderComputerBoard(board) {
     })
 };
 
+function clearComputerGameboard() {
+    const computerGameboard = document.getElementById('computerGameboard');
+    while (computerGameboard.firstChild) {
+        computerGameboard.firstChild.remove();
+    }
+};
+
+function renderDroppableShips() {
+
+    clearDroppableShips();
+
+    //grab display box
+    const shipOptionsDiv = document.querySelector('.shipOptions');
+    //for each ship...
+    for (let i=0; i<ships.length; i++) {
+        //create div
+        const newShipDisplay = document.createElement('div')
+        //add displayShip, draggable and ship classes
+        newShipDisplay.classList.add('displayShip');
+
+        //if ship[i] doesn't exists in playerOneBoard.shipInfo, add draggable
+        if (playerOneBoard.shipInfo.indexOf(ships[i]) === -1) {
+            newShipDisplay.classList.add('draggable');
+            newShipDisplay.setAttribute('draggable', 'true');
+        } else {
+            newShipDisplay.classList.add('dropped')
+        };
+
+        newShipDisplay.classList.add('ship');
+        newShipDisplay.setAttribute('id', `${i}`)
+        
+        
+        for (let s=0; s<ships[i].length; s++) {
+            const newShipCell = document.createElement('div');
+            newShipCell.classList.add('cell');
+            newShipCell.classList.add('occupiedCell');
+            newShipDisplay.appendChild(newShipCell)
+        }
+
+        shipOptionsDiv.appendChild(newShipDisplay)
+    } 
+
+    //if all ships are dropped, render computer board to start game
+
+    if (playerOneBoard.shipInfo.length === ships.length) {
+
+        //Instruct to attack on computer's board
+
+        const banner = document.querySelector('.banner');
+        banner.innerHTML = 'Attack!';
+
+        renderComputerBoard(computerBoard);
+    }
+
+}
+
+function clearDroppableShips() {
+    const shipOptionsDiv = document.querySelector('.shipOptions')
+    while (shipOptionsDiv.firstChild) {
+        shipOptionsDiv.firstChild.remove();
+    }
+}
+
 function declareWinner(board) {
     if (board.allShipsSunk() === true) {
         const winningMessage = document.getElementById('winningMessage');
@@ -98,7 +162,12 @@ function declareWinner(board) {
     } else return;
 }
 
+//Drag and Drop function to place ship and render board with it.
+
+
+
 export {
     renderPlayerBoard,
-    renderComputerBoard
+    renderComputerBoard,
+    clearPlayerGameboard
 }
