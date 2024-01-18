@@ -38,10 +38,12 @@ const game = () => {
     //playerOneBoard.placeShip(fighter, 58, true);
     //playerOneBoard.placeShip(turbo, 82);
 
-    computerBoard.placeShip(ships[0], 14);
-    computerBoard.placeShip(ships[1], 21);
-    computerBoard.placeShip(ships[2], 18, true);
-    computerBoard.placeShip(ships[3], 96);
+    // computerBoard.placeShip(ships[0], 14);
+    // computerBoard.placeShip(ships[1], 21);
+    // computerBoard.placeShip(ships[2], 18, true);
+    // computerBoard.placeShip(ships[3], 99);
+
+    computerBoard.generateRandomBoard(ships)
 
     renderPlayerBoard(playerOneBoard);
 

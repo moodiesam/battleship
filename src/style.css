@@ -5,7 +5,7 @@ body {
 
 .mainPage {
     display: grid;
-    grid-template-rows: 20vh 55vh 25vh;
+    grid-template-rows: 18vh 55vh 27vh;
 }
 
 .header {
@@ -87,7 +87,8 @@ body {
 
 .shipOptions {
     display: grid;
-    grid-auto-columns: 300px;
+    grid-auto-columns: auto;
+    gap: 30px;
     grid-auto-flow: column;
     justify-content: center;
     align-items: center;

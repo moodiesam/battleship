@@ -26,7 +26,6 @@ function dragDrop(ships) {
             } else {
                 ships[draggable.id].vertical = false;
             }
-            console.log(ships[draggable.id].vertical)
             renderPlayerBoard(playerOneBoard)
         })
 

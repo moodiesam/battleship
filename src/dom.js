@@ -77,11 +77,12 @@ function renderComputerBoard(board) {
                 declareWinner(computerBoard)
 
                 //make random computer attack
-
-                playerOneBoard.receiveAttack(computer.randomMove(100));
-                clearPlayerGameboard();
-                renderPlayerBoard(playerOneBoard);
-                declareWinner(playerOneBoard)
+                if (declareWinner(computerBoard) === -1) {
+                    playerOneBoard.receiveAttack(computer.randomMove(100));
+                    clearPlayerGameboard();
+                    renderPlayerBoard(playerOneBoard);
+                    declareWinner(playerOneBoard)
+                }
             })
         }
 
@@ -163,11 +164,8 @@ function declareWinner(board) {
 
         winningMessage.innerHTML = 'Winner';
         winningMessage.classList.add('winner');
-    } else return;
+    } else {return -1};
 }
-
-//Drag and Drop function to place ship and render board with it.
-
 
 
 export {
