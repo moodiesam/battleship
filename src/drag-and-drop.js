@@ -1,6 +1,3 @@
-//create the logic for placing ships on player's board with drag and drop
-
-
 import { playerOneBoard } from "./game";
 import {  renderPlayerBoard } from "./dom";
 
@@ -9,8 +6,11 @@ function dragDrop(ships) {
 
     const draggables = document.querySelectorAll(`.draggable`);
     const dropLocations = document.querySelectorAll('.playerCell');
+    const offsetCells = document.querySelectorAll('.offsetCell')
     let dropSpot;
-
+    let offset;
+    
+    // event listeners to know where to place ship
     dropLocations.forEach(location => {
         location.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -18,6 +18,14 @@ function dragDrop(ships) {
         })
     })
 
+    // event listeners to set offset for where ship is grabbed
+    offsetCells.forEach(offsetCell => {
+        offsetCell.addEventListener('mouseover', () => {
+            offset = offsetCell.id.toString().split(' ')[1]
+        })
+    })
+
+    // event listeners to change toggle horizontal/vertical ships placement
     draggables.forEach(draggable => {
 
         draggable.addEventListener('click', () => {
@@ -35,7 +43,7 @@ function dragDrop(ships) {
 
 
         draggable.addEventListener('dragend', () => {
-            playerOneBoard.placeShip(ships[draggable.id], dropSpot, ships[draggable.id].vertical);
+            playerOneBoard.placeShip(ships[draggable.id], dropSpot, ships[draggable.id].vertical, offset);
             draggable.classList.remove(`draggable`)
             draggable.setAttribute('draggable', 'false')
             draggable.classList.remove('dragging');
@@ -45,39 +53,6 @@ function dragDrop(ships) {
     })
 }
 
-// function dragDrop(ships) {
 
-//     const draggables = document.querySelectorAll(`.draggable`);
-//     const dropLocations = document.querySelectorAll('.playerCell');
-
-
-//     draggables.forEach(draggable => {
-//         draggable.addEventListener('dragstart', () => {
-//             draggable.classList.add('dragging');
-//         })
-
-//         draggable.addEventListener('dragend', () => {
-//             // playerOneBoard.placeShip(ships[draggable.id], dropSpot);
-//             // draggable.classList.remove(`draggable`)
-//             // draggable.setAttribute('draggable', 'false')
-//              draggable.classList.remove('dragging');
-//             // clearPlayerGameboard(playerOneBoard);
-//             // renderPlayerBoard(playerOneBoard);
-//         })
-//     })
-
-//     dropLocations.forEach(location => {
-//         location.addEventListener('dragover', (e) => {
-//             e.preventDefault();
-//             const dropSpot = getDropLocation(location)
-//             const draggable = document.querySelector('.dragging');
-//             playerOneBoard.placeShip(ships[draggable.id], dropspot);
-//         })
-//     })
-
-//     function getDropLocation(location) {
-        
-//     }
-// }
 
 export { dragDrop }

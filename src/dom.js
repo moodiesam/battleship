@@ -1,3 +1,4 @@
+import { game } from "./game";
 import { dragDrop } from "./drag-and-drop";
 import { playerOne, computer, playerOneBoard, computerBoard, ships } from "./game";
 
@@ -73,8 +74,7 @@ function renderComputerBoard(board) {
             
             newCell.addEventListener("click", e => {
                 board.receiveAttack(e.target.id)
-                renderComputerBoard(board);
-                declareWinner(computerBoard)
+                renderComputerBoard(board);    
 
                 //make random computer attack
                 if (declareWinner(computerBoard) === -1) {
@@ -126,8 +126,10 @@ function renderDroppableShips() {
             const newShipCell = document.createElement('div');
             newShipCell.classList.add('cell');
             newShipCell.classList.add('occupiedCell');
+            newShipCell.classList.add('offsetCell')
+            newShipCell.setAttribute('id', `offset ${s}`);
             newShipDisplay.appendChild(newShipCell)
-        }
+        }        
 
         //if ship is vertical, add class to display vertical
         if (ships[i].vertical === true) {
@@ -147,6 +149,10 @@ function renderDroppableShips() {
         banner.innerHTML = 'Attack!';
 
         renderComputerBoard(computerBoard);
+
+        //remove droppable ships
+
+        clearDroppableShips()
     }
 
 }
@@ -161,10 +167,28 @@ function clearDroppableShips() {
 function declareWinner(board) {
     if (board.allShipsSunk() === true) {
         const winningMessage = document.getElementById('winningMessage');
-
-        winningMessage.innerHTML = 'Winner';
         winningMessage.classList.add('winner');
+
+        if (board.playerName === 'computer') {        
+            winningMessage.innerHTML = 'You Win!';
+            restart()
+        } else {
+            winningMessage.innerHTML = 'You lost... Better Luck Next Time!'
+            restart()
+        }
     } else {return -1};
+}
+
+function restart() {
+    const container = document.querySelector('.shipOptions');
+    const restartButton = document.createElement('button')
+    restartButton.innerHTML = "New Game"
+    container.appendChild(restartButton);
+    restartButton.addEventListener('click', () => {
+        clearComputerGameboard()
+        clearPlayerGameboard()
+        game()
+    })
 }
 
 

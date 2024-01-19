@@ -1,4 +1,3 @@
-
 class Gameboard {
     constructor (playerName) {
         this.playerName = playerName;
@@ -12,8 +11,9 @@ class Gameboard {
         }
     };
 
-    placeShip(ship, startingPosition, vertical = false) {
+    placeShip(ship, startingPosition, vertical = false, offset) {
         if (vertical === false) {
+            startingPosition = startingPosition - offset;
             //if ship hits end of row, cancel drop
             let availableSpace = 10 - startingPosition % 10;
             if (availableSpace < ship.length) return -1;
@@ -31,8 +31,9 @@ class Gameboard {
                 this.boardInfo[startingPosition + i].ship = ship.id;
             }
         } else {
+            startingPosition = startingPosition - (10 * offset);
             let availableSpace = 10 - startingPosition.toString().split('')[0]
-            if (availableSpace < ship.length) return -1;
+            if (availableSpace < ship.length || startingPosition < 0) return -1;
 
             for (let i = 0; i < ship.length; i++) {
                 if (this.boardInfo[startingPosition + i * 10].ship !== null) {
@@ -66,7 +67,7 @@ class Gameboard {
             };
 
             //if spot not available, run again
-            if (this.placeShip(ship, coordinates, vertical) === -1) {
+            if (this.placeShip(ship, coordinates, vertical, 0) === -1) {
                 this.placeRandomShip(ship)
             }
 
