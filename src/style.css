@@ -1,6 +1,6 @@
 body {
     margin: 0px;
-    background-color: lightgreen;
+    background-color: #a5f3fc;
 }
 
 .mainPage {
@@ -25,6 +25,10 @@ body {
     align-items: center;
     justify-items: center;
     font-size: 50px;
+    border: 1px solid #083344;
+    border-radius: 4px;
+    background-color: #083344;
+    color: #ecfeff;
 }
 
 .gameboardHeader {
@@ -51,6 +55,7 @@ body {
     width: 1fr;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
+    
 }
 
 .cell {
@@ -93,6 +98,19 @@ body {
     justify-content: center;
     align-items: center;
     justify-items: center;
+}
+
+button {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
 .displayShip {
